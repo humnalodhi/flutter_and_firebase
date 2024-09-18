@@ -47,6 +47,46 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          const Text(
+            '** Fetched data using stream builder **',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder(
+              builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+                Map<dynamic, dynamic> map =
+                    snapshot.data?.snapshot.value as dynamic;
+                List<dynamic> list = [];
+                list.clear();
+                list = map.values.toList();
+                if (!snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.snapshot.children.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(list[index]['title'] ?? 'null'),
+                      );
+                    },
+                  );
+                }
+              },
+              stream: ref.onValue,
+            ),
+          ),
+          const Text(
+            '** Fetched data using firebase animated list **',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+            ),
+          ),
           Expanded(
             child: FirebaseAnimatedList(
               query: ref,
@@ -67,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPostsScreen(),
+              builder: (context) => const AddPostsScreen(),
             ),
           );
         },
