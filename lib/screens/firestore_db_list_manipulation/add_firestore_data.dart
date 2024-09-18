@@ -1,27 +1,26 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_and_firebase/utils/utils.dart';
 import 'package:flutter_and_firebase/widgets/round_button.dart';
 
-class AddPostsScreen extends StatefulWidget {
-  const AddPostsScreen({super.key});
+class AddFirestoreData extends StatefulWidget {
+  const AddFirestoreData({super.key});
 
   @override
-  State<AddPostsScreen> createState() => _AddPostsScreenState();
+  State<AddFirestoreData> createState() => _AddFirestoreDataState();
 }
 
-class _AddPostsScreenState extends State<AddPostsScreen> {
-  ///Creating a node(table) in firebase database.
-  final databaseRef = FirebaseDatabase.instance.ref('Posts');
-
-  final TextEditingController postController = TextEditingController();
+class _AddFirestoreDataState extends State<AddFirestoreData> {
+  final TextEditingController controller = TextEditingController();
   bool loading = false;
+  ///Creating a collection(table) in firebase firestore database.
+  final fireStore = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Posts'),
+        title: const Text('Add firestore data'),
         centerTitle: true,
       ),
       body: Padding(
@@ -35,7 +34,7 @@ class _AddPostsScreenState extends State<AddPostsScreen> {
               height: 30,
             ),
             TextFormField(
-              controller: postController,
+              controller: controller,
               decoration: const InputDecoration(
                 hintText: "What's in your mind?",
                 border: OutlineInputBorder(),
@@ -52,14 +51,17 @@ class _AddPostsScreenState extends State<AddPostsScreen> {
                 setState(() {
                   loading = true;
                 });
-                databaseRef.child(DateTime.now().millisecondsSinceEpoch.toString()).set({
-                  'id': DateTime.now().millisecondsSinceEpoch.toString(),
-                  'title': postController.text.toString(),
+
+                String id = DateTime.now().millisecondsSinceEpoch.toString();
+                fireStore.doc(id).set({
+                  'title': controller.text.toString(),
+                  'id': id,
                 }).then((value) {
-                  Utils().toastMessage('Post added');
+                  Utils().toastMessage('Post Added');
                   setState(() {
                     loading = false;
                   });
+                  controller.clear();
                 }).onError((error, stackTrace) {
                   Utils().toastMessage(
                     error.toString(),
@@ -68,6 +70,7 @@ class _AddPostsScreenState extends State<AddPostsScreen> {
                     loading = false;
                   });
                 });
+
               },
             ),
           ],

@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_and_firebase/screens/home_screen.dart';
-import 'package:flutter_and_firebase/screens/login_with_phone_num_screen.dart';
-import 'package:flutter_and_firebase/screens/signup_screen.dart';
+import 'package:flutter_and_firebase/screens/firebase_auth/signup_screen.dart';
+import 'package:flutter_and_firebase/screens/realtime_db_list_manipulations/home_screen.dart';
 import 'package:flutter_and_firebase/utils/utils.dart';
 import 'package:flutter_and_firebase/widgets/round_button.dart';
+
+import 'login_with_phone_num_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_and_firebase/screens/verify_code_screen.dart';
+import 'package:flutter_and_firebase/screens/firebase_auth/verify_code_screen.dart';
 import 'package:flutter_and_firebase/utils/utils.dart';
 import 'package:flutter_and_firebase/widgets/round_button.dart';
 
