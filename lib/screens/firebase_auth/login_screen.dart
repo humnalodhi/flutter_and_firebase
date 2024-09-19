@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_and_firebase/screens/firebase_auth/forgot_password_screen.dart';
 import 'package:flutter_and_firebase/screens/firebase_auth/signup_screen.dart';
 import 'package:flutter_and_firebase/screens/realtime_db_list_manipulations/home_screen.dart';
 import 'package:flutter_and_firebase/utils/utils.dart';
@@ -136,6 +137,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       login();
                     }
                   },
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.deepPurple,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 50,

@@ -140,10 +140,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .child(
                                       snapshot.child('id').value.toString(),
                                     )
-                                    .remove();
+                                    .remove()
+                                    .then(
+                                  (value) {
+                                    Utils().toastMessage('Deleted');
+                                  },
+                                ).onError(
+                                  (error, stackTrace) {
+                                    Utils().toastMessage(
+                                      error.toString(),
+                                    );
+                                  },
+                                );
                               },
                               title: const Text('Delete'),
-                              leading: const Icon(Icons.delete),
+                              leading: const Icon(
+                                Icons.delete,
+                              ),
                             ),
                           )
                         ],

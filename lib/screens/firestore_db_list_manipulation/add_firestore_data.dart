@@ -4,7 +4,9 @@ import 'package:flutter_and_firebase/utils/utils.dart';
 import 'package:flutter_and_firebase/widgets/round_button.dart';
 
 class AddFirestoreData extends StatefulWidget {
-  const AddFirestoreData({super.key});
+  const AddFirestoreData({
+    super.key,
+  });
 
   @override
   State<AddFirestoreData> createState() => _AddFirestoreDataState();
@@ -13,6 +15,7 @@ class AddFirestoreData extends StatefulWidget {
 class _AddFirestoreDataState extends State<AddFirestoreData> {
   final TextEditingController controller = TextEditingController();
   bool loading = false;
+
   ///Creating a collection(table) in firebase firestore database.
   final fireStore = FirebaseFirestore.instance.collection('users');
 
@@ -51,7 +54,6 @@ class _AddFirestoreDataState extends State<AddFirestoreData> {
                 setState(() {
                   loading = true;
                 });
-
                 String id = DateTime.now().millisecondsSinceEpoch.toString();
                 fireStore.doc(id).set({
                   'title': controller.text.toString(),
@@ -70,7 +72,6 @@ class _AddFirestoreDataState extends State<AddFirestoreData> {
                     loading = false;
                   });
                 });
-
               },
             ),
           ],
